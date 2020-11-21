@@ -1,6 +1,7 @@
 from flask import Flask, Response, render_template
 from camera import VideoCamera
 from speech import TextRecorder
+import speech
 import camera
 import settings
 import time
@@ -38,6 +39,7 @@ def video_feed():
 
 @app.route('/text_feed')
 def text_feed():
+    return classify()
 
 @app.route('/test2')
 def index2():
