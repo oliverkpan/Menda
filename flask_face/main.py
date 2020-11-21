@@ -1,5 +1,6 @@
 from flask import Flask, Response, render_template
 from camera import VideoCamera
+from speech import TextRecorder
 
 app = Flask(__name__)
 
@@ -13,10 +14,18 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+def classify(text):
+    while True:
+        result = text.run()
+
 
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/text_feed')
+def text_feed():
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', debug = True)
