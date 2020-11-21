@@ -6,8 +6,8 @@ import cv2
 import numpy as np  
 import tensorflow.python.keras
 
-face_classifier = cv2.CascadeClassifier(r'C:\Users\Oliver\Desktop\camera_app\face.xml')
-classifier = tensorflow.keras.models.load_model(r'C:\Users\Oliver\Desktop\camera_app\emotion2.h5')
+face_classifier = cv2.CascadeClassifier(r'face.xml')
+classifier = tensorflow.keras.models.load_model(r'emotion2.h5')
 class_labels=['Upset','Happy','Anxious','Depressed','Surprise']
 ds_factor = 0.6
 print('Works')
