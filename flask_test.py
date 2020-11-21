@@ -10,8 +10,8 @@ import tensorflow.python.keras
 
 app = Flask(__name__)
 
-face_classifier = cv2.CascadeClassifier(r'C:\Users\Oliver\Desktop\face.xml')
-classifier = tensorflow.keras.models.load_model(r'C:\Users\Oliver\Desktop\emotion2.h5')
+face_classifier = cv2.CascadeClassifier(r'models\face.xml')
+classifier = tensorflow.keras.models.load_model(r'models\emotion2.h5')
 
 class_labels=['Upset','Happy','Anxious','Depressed','Surprise']
 video=cv2.VideoCapture(0)
