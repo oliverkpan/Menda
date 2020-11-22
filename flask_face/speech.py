@@ -66,7 +66,7 @@ class TextRecorder(object):
                     MyText = MyText.lower() 
         
                     print(MyText)
-                    return self.sentiment_analysis(MyText) 
+                    return MyText
                     # self.SpeakText(MyText)
                     break 
 
