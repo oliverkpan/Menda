@@ -31,6 +31,7 @@ def gen(camera):
 def classify(text):
     while True:
         result = text.run()
+        return result
 
 
 @app.route('/video_feed')
@@ -38,8 +39,12 @@ def video_feed():
     return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/text_feed')
+
+
 def text_feed():
-    return classify()
+    # if request.method == "POST"
+    text = TextRecorder()
+    return Response(classify(text))
 
 @app.route('/test2')
 def index2():
@@ -52,5 +57,5 @@ def index2():
     return render_template('index2.html', variable = max(d.iteritems(), key=operator.itemgetter(1))[0])
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug = True)
+    app.run(host='127.0.0.1', debug = True)
 
