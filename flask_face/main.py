@@ -10,19 +10,17 @@ import settings
 import time
 import operator
 
-capture_duration = 15
-spoken_text = ""
+app = Flask(__name__,static_url_path="/static")
+capture_duration = 10
+start_time = time.time()
 
 emotions = []
-
-app = Flask(__name__,static_url_path="/static")
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 def gen(camera):
-    start_time = time.time()
     while (int(time.time() - start_time) < capture_duration):
         settings.init()
         frame = camera.get_frame()
@@ -31,29 +29,6 @@ def gen(camera):
         if len(settings.myList) != 0:
             emotions.append(settings.myList[0][0])
             print(settings.myList[0][0])
-
-def sentiment_analysis(sentiment_text):
-
-    score = SentimentIntensityAnalyzer().polarity_scores(sentiment_text)
-
-    neg = score['neg']
-
-    pos = score['pos']
-
-    if neg > pos:
-        return("Negative :(")
-    elif pos > neg:
-        return("Positive :)")
-    else:
-        return("Neutral")
-
-def classify(text):
-    while True:
-        result = text.run()
-        spoken_text = result
-        final = sentiment_analysis(result)
-
-        return final
 
 @app.route('/login')
 def login():
@@ -67,16 +42,5 @@ def newlog():
 def video_feed():
     return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/results')
-def results():
-    classified_text = TextRecorder()
-
-    final_result = classify(classified_text)
-
-    output = "What you said: "+ spoken_text + "\nSentiment analysis: " + final_result
-
-    return Response(output)
-
 if __name__ == '__main__':
     app.run(host='localhost', debug = True)
-

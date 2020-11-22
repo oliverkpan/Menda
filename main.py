@@ -82,11 +82,11 @@ def text_feed():
 def index2():
     d = {}
     for i in emotions:
-        if i not in d:
-            d[i] = 1
+        if i[0] not in d:
+            d[i[0]] = 1
         else:
-            d[i] += 1
-    return render_template('index2.html', variable = str(max(d, key=d.get)))
+            d[i[0]] += 1
+    return render_template('index2.html', variable = max(d.iteritems(), key=operator.itemgetter(1))[0])
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', debug = True)

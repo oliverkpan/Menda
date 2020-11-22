@@ -9,7 +9,7 @@ import settings
 
 face_classifier = cv2.CascadeClassifier(r'face.xml')
 classifier = tensorflow.keras.models.load_model(r'emotion2.h5')
-class_labels=['Angry','Happy','Nervous','Sad','Fearful']
+class_labels=['Upset','Happy','Anxious','Depressed','Surprise']
 ds_factor = 0.6
 print('Works')
 
@@ -47,7 +47,7 @@ class VideoCamera(object):
                 
                 label=class_labels[preds.argmax()]
                 label_position=(x,y)
-                cv2.putText(frame,label,label_position,cv2.FONT_HERSHEY_SIMPLEX,2,(255, 0, 255),10)
+                cv2.putText(frame,label,label_position,cv2.FONT_HERSHEY_SIMPLEX,2,(255, 0, 255),20)
             else:
                 cv2.putText(frame,'No Face Found',(20,20),cv2.FONT_HERSHEY_SIMPLEX,2,(0,255,0),3)
             break
