@@ -29,7 +29,29 @@ def gen(camera):
         if len(settings.myList) != 0:
             emotions.append(settings.myList[0][0])
             print(settings.myList[0][0])
+            
+def sentiment_analysis(sentiment_text):
 
+    score = SentimentIntensityAnalyzer().polarity_scores(sentiment_text)
+
+    neg = score['neg']
+
+    pos = score['pos']
+
+    if neg > pos:
+        return("Negative :(")
+    elif pos > neg:
+        return("Positive :)")
+    else:
+        return("Neutral")
+
+def classify(text):
+    while True:
+        result = text.run()
+        spoken_text = result
+        final = sentiment_analysis(result)
+
+        return final
 @app.route('/login')
 def login():
     return render_template('login.html')
@@ -41,6 +63,16 @@ def newlog():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/results')
+def results():
+    classified_text = TextRecorder()
+
+    final_result = classify(classified_text)
+
+    output = "What you said: "+ spoken_text + "\nSentiment analysis: " + final_result
+
+    return Response(output)
 
 if __name__ == '__main__':
     app.run(host='localhost', debug = True)
