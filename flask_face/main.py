@@ -12,7 +12,7 @@ import operator
 
 app = Flask(__name__)
 
-capture_duration = 10
+capture_duration = 20
 start_time = time.time()
 
 emotions = []
@@ -81,12 +81,19 @@ def text_feed():
 @app.route('/test2')
 def index2():
     d = {}
+    emotion_count = 0
     for i in emotions:
-        if i[0] not in d:
-            d[i[0]] = 1
+        if i not in d:
+            d[i] = 1
         else:
-            d[i[0]] += 1
-    return render_template('index2.html', variable = max(d.iteritems(), key=operator.itemgetter(1))[0])
+            d[i] += 1
+        emotion_count += 1
+
+
+    # score = (d["0"] + d["1"] + d["2"] + d["3"] + d["4"])/emotion_count
+    # print(score)
+    # return render_template('index2.html', variable = str(max(d, key=d.get)))
+    return render_template('index2.html', variable = d["1"])
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', debug = True)
