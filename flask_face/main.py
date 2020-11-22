@@ -1,20 +1,37 @@
-from flask import Flask, Response, render_template, request, session
-from camera import VideoCamera
-from speech import TextRecorder
-import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from flask import Flask, Response, render_template, request, redirect
+import pyrebase
+# from camera import VideoCamera
+# from speech import TextRecorder
+# import nltk
+# from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-import speech
-import camera
-import settings
-import time
-import operator
+# import speech
+# import camera
+# import settings
+# import time
+# import operator
+
+firebaseConfig = {
+    "apiKey": "AIzaSyBDPB89itGMDiZgksfiOtOmT0kJ4FMBul4",
+    "authDomain": "hack-western-7.firebaseapp.com",
+    "databaseURL": "https://hack-western-7.firebaseio.com",
+    "projectId": "hack-western-7",
+    "storageBucket": "hack-western-7.appspot.com",
+    "messagingSenderId": "1061541009957",
+    "appId": "1:1061541009957:web:4382341cb8637e3128fdcc"
+}
+
+firebase = pyrebase.initialize_app(firebaseConfig)
 
 app = Flask(__name__,static_url_path="/static")
 capture_duration = 10
 spoken_text = ""
 
 emotions = []
+
+@app.route('/index.html')
+def reroute():
+    return redirect('/', 302)
 
 @app.route('/')
 def index():
@@ -55,9 +72,30 @@ def classify(text):
         final = sentiment_analysis(result)
 
         return final
-@app.route('/login')
+
+@app.route('/login.html')
 def login():
     return render_template('login.html')
+
+@app.route('/history.html')
+def history():
+    return render_template('history.html')
+
+@app.route('/trends.html')
+def trends():
+    return render_template('trends.html')
+
+@app.route('/music.html')
+def music():
+    return render_template('music.html')
+
+@app.route('/meditation.html')
+def meditation():
+    return render_template('meditation.html')
+
+@app.route('/podcast.html')
+def podcast():
+    return render_template('podcast.html')
 
 @app.route('/new.html')
 def newlog():
