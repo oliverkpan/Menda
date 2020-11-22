@@ -10,11 +10,27 @@ import settings
 import time
 import operator
 
+capture_duration = 15
+# start_time = time.time()
+
+emotions = []
+
 app = Flask(__name__,static_url_path="/static")
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+def gen(camera):
+    start_time = time.time()
+    while (int(time.time() - start_time) < capture_duration):
+        settings.init()
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        if len(settings.myList) != 0:
+            emotions.append(settings.myList[0][0])
+            print(settings.myList[0][0])
 
 @app.route('/login')
 def login():
@@ -30,3 +46,4 @@ def video_feed():
 
 if __name__ == '__main__':
     app.run(host='localhost', debug = True)
+
