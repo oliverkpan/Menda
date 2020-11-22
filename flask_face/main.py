@@ -12,7 +12,7 @@ import operator
 
 app = Flask(__name__,static_url_path="/static")
 capture_duration = 10
-start_time = time.time()
+spoken_text = ""
 
 emotions = []
 
@@ -21,6 +21,8 @@ def index():
     return render_template('index.html')
 
 def gen(camera):
+
+    start_time = time.time()
     while (int(time.time() - start_time) < capture_duration):
         settings.init()
         frame = camera.get_frame()
@@ -47,6 +49,7 @@ def sentiment_analysis(sentiment_text):
 
 def classify(text):
     while True:
+        global spoken_text
         result = text.run()
         spoken_text = result
         final = sentiment_analysis(result)
@@ -72,7 +75,9 @@ def results():
 
     output = "What you said: "+ spoken_text + "\nSentiment analysis: " + final_result
 
-    return Response(output)
+    return render_template("results.html", results = output)
+
+    # return Response(output)
 
 if __name__ == '__main__':
     app.run(host='localhost', debug = True)
