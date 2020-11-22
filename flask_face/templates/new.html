@@ -36,7 +36,7 @@
                     <img src="../static/img/menda_logo_lockup.png" width="48px" height="48px"
                          img> 
                 </div>
-                <div class="sidebar-brand-text mx-3">Menda</div>
+                <div class="sidebar-brand-text mx-3 mt-2 text-success">Menda</div>
             </a>
 
             <!-- Divider -->
@@ -69,8 +69,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Log History</a>
-                        <a class="collapse-item" href="cards.html">Trends</a>
+                        <a class="collapse-item" href="history.html">Log History</a>
+                        <a class="collapse-item" href="trends.html">Trends</a>
                     </div>
                 </div>
             </li>
@@ -104,7 +104,7 @@
             <div class="sidebar-card">
                 <!-- <img class="sidebar-card-illustration mb-2" src="../static/img/undraw_rocket.svg" alt=""> -->
                 <p class="text-center mb-2">Menda is <strong>not a diagnosis app</strong>. Please refer to your family doctor for more information.</p>
-                <a class="btn btn-success btn-sm" href="https://www.ontario.ca/page/find-family-doctor-or-nurse-practitioner">Find a doctor</a>
+                <a class="btn btn-success btn-sm" href="https://www.ontario.ca/page/find-family-doctor-or-nurse-practitioner" target="_blank">Find a doctor</a>
             </div>
 
         </ul>
@@ -141,7 +141,7 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="podcast.html">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-play-circle text-white"></i>
@@ -152,7 +152,7 @@
                                         <span class="font-weight-bold">Hey Amit! We have a new podcast recommendation for you!</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="trends.html">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-success">
                                             <i class="fas fa-file-alt text-white"></i>
@@ -212,15 +212,14 @@
                     <div class="row">
 
                         <!-- ADD IN ML VIDEO HERE!!!!!! -->
-                        <img src="{{url_for('video_feed')}}" alt="">
-                        <img src="{{url_for('results')}}" alt="">
+
                     </div> 
 
                     <div class="row">   
                         <button type="button" class="btn btn-secondary">Cancel</button>
                         &nbsp;
                         &nbsp;
-                        <button type="button" class="btn btn-primary">Save My Log</button>
+                        <button type="button" class="btn btn-success">Save My Log</button>
                     </div>
                     <!-- /.container-fluid -->
 
